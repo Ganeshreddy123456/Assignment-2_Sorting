@@ -1,0 +1,185 @@
+1//Implement Binary Search
+
+function binarySearch(array, target) {
+  // Initialize low and high indexes.
+  let low = 0;
+  let high = array.length - 1;
+  let count = 0;
+
+  // Loop while low <= high.
+  while (low <= high) {
+    // Increment the comparison count.
+    count++;
+
+    // Calculate the middle index.
+    let mid = Math.floor((low + high) / 2);
+
+    // Check if the target value is equal to the middle element.
+    if (array[mid] === target) {
+      // Return the index of the target value and the comparison count.
+      return mid, count;
+    } else if (array[mid] < target) {
+      // Set the low index to the middle index + 1.
+      low = mid + 1;
+    } else {
+      // Set the high index to the middle index - 1.
+      high = mid - 1;
+    }
+  }
+
+  // Return -1 and the comparison count if the target value is not found.
+  return -1, count;
+}
+
+// Driver code.
+const array = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+const target = 13;
+
+const index, count = binarySearch(array, target);
+
+if (index === -1) {
+  console.log("Target not found");
+} else {
+  console.log("Target found at index", index, "in", count, "comparisons");
+}
+
+2//Implement Merge Sort
+
+function mergeSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+
+  const middle = Math.floor(array.length / 2);
+  const left = mergeSort(array.slice(0, middle));
+  const right = mergeSort(array.slice(middle));
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  const merged = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {
+      merged.push(left[i]);
+      i++;
+    } else {
+      merged.push(right[j]);
+      j++;
+    }
+  }
+
+  merged.push(...left.slice(i));
+  merged.push(...right.slice(j));
+
+  return merged;
+}
+
+const array = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+
+const sortedArray = mergeSort(array);
+
+console.log(sortedArray); // [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+
+3//Implement Quick Sort
+
+function quickSort(array, low, high) {
+  if (low < high) {
+    const pivot = partition(array, low, high);
+    quickSort(array, low, pivot - 1);
+    quickSort(array, pivot + 1, high);
+  }
+}
+
+function partition(array, low, high) {
+  const pivot = array[high];
+  let i = low - 1;
+
+  for (let j = low; j < high; j++) {
+    if (array[j] <= pivot) {
+      i++;
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  [array[i + 1], array[high]] = [array[high], array[i + 1]];
+
+  return i + 1;
+}
+
+function main() {
+  const array = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+
+  quickSort(array, 0, array.length - 1);
+
+  console.log(array);
+}
+
+if (require.main === module) {
+  main();
+}
+
+4//Implement Insertion Sort
+
+function insertionSort(array) {
+  for (let i = 1; i < array.length; i++) {
+    let currentValue = array[i];
+    let j = i - 1;
+
+    while (j >= 0 && array[j] > currentValue) {
+      array[j + 1] = array[j];
+      j--;
+    }
+
+    array[j + 1] = currentValue;
+  }
+
+  return array;
+}
+
+function main() {
+  let array = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+
+  sortedArray = insertionSort(array);
+
+  console.log(sortedArray);
+}
+
+if (require.main === module) {
+  main();
+}
+
+5//Write a program to sort list of strings (similar to that of dictionary)
+
+function sortStrings(strings) {
+  """
+  Sorts a list of strings in alphabetical order.
+
+  Args:
+    strings: The list of strings to sort.
+
+  Returns:
+    The sorted list of strings.
+  """
+
+  sortedStrings = strings.sort(function(string1, string2) {
+    return string1.localeCompare(string2);
+  });
+
+  return sortedStrings;
+}
+
+function main() {
+  strings = ["hello", "world", "python", "programming"];
+
+  sortedStrings = sortStrings(strings);
+
+  console.log(sortedStrings);
+}
+
+if (require.main === module) {
+  main();
+}
